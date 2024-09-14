@@ -14,7 +14,9 @@ const SingleStoryScreen = () => {
   const [storyLength, setStoryLength] = useState(200); // Longitud predeterminada de la historia
   const [storyGenre, setStoryGenre] = useState('Fantasía'); // Género predeterminado de la historia
   const [withImages, setWithImages] = useState(0); // Género predeterminado de la historia
-
+  const [arrayGenderOptions] = useState(['Amor', 'Fantasía', 'Miedo', 'Acción']);
+  const [arrayLengthOptions] = useState([200,350,500]);
+ 
   // Función para agregar la palabra al array con validaciones
   const addWord = () => {
     const trimmedWord = word.trim();
@@ -71,6 +73,20 @@ const SingleStoryScreen = () => {
     setWithImages(images);
   };
 
+  lengthOptions = arrayLengthOptions.map(info => (
+    <TouchableOpacity style={[styles.optionsButtonsButton, storyLength === info && styles.optionsButtonsButtonSelected]} onPress={() => selectStoryLength(info)}>
+      <Text style={styles.optionsButtonsButtonText}>{info} palabras</Text>
+    </TouchableOpacity>
+  ));
+
+  genderOptions = arrayGenderOptions.map(info => (
+    <TouchableOpacity
+      style={[styles.optionsButtonsButton, storyGenre === info && styles.optionsButtonsButtonSelected]}
+      onPress={() => selectStoryGenre(info)}>
+      <Text style={styles.optionsButtonsButtonText}>{info}</Text>
+    </TouchableOpacity>
+  ));
+
   return (
     <View style={styles.container}>
       {/* Input de texto y botón de añadir palabra */}
@@ -101,24 +117,7 @@ const SingleStoryScreen = () => {
       <View style={styles.optionsButtonsContainer}>
         <Text style={styles.optionsButtonsText}>Selecciona la longitud de la historia:</Text>
         <View style={styles.optionsButtonsButtonsContainer}>
-          <TouchableOpacity
-            style={[styles.optionsButtonsButton, storyLength === 200 && styles.optionsButtonsButtonSelected]}
-            onPress={() => selectStoryLength(200)}
-          >
-            <Text style={styles.optionsButtonsButtonText}>200 palabras</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.optionsButtonsButton, storyLength === 350 && styles.optionsButtonsButtonSelected]}
-            onPress={() => selectStoryLength(350)}
-          >
-            <Text style={styles.optionsButtonsButtonText}>350 palabras</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.optionsButtonsButton, storyLength === 500 && styles.optionsButtonsButtonSelected]}
-            onPress={() => selectStoryLength(500)}
-          >
-            <Text style={styles.optionsButtonsButtonText}>500 palabras</Text>
-          </TouchableOpacity>
+          {lengthOptions}
         </View>
       </View>
 
@@ -126,30 +125,7 @@ const SingleStoryScreen = () => {
       <View style={styles.optionsButtonsContainer}>
         <Text style={styles.optionsButtonsText}>Selecciona el género de la historia:</Text>
         <View style={styles.optionsButtonsButtonsContainer}>
-          <TouchableOpacity
-            style={[styles.optionsButtonsButton, storyGenre === 'Amor' && styles.optionsButtonsButtonSelected]}
-            onPress={() => selectStoryGenre('Amor')}
-          >
-            <Text style={styles.optionsButtonsButtonText}>Amor</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.optionsButtonsButton, storyGenre === 'Fantasía' && styles.optionsButtonsButtonSelected]}
-            onPress={() => selectStoryGenre('Fantasía')}
-          >
-            <Text style={styles.optionsButtonsButtonText}>Fantasía</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.optionsButtonsButton, storyGenre === 'Miedo' && styles.optionsButtonsButtonSelected]}
-            onPress={() => selectStoryGenre('Miedo')}
-          >
-            <Text style={styles.optionsButtonsButtonText}>Miedo</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.optionsButtonsButton, storyGenre === 'Acción' && styles.optionsButtonsButtonSelected]}
-            onPress={() => selectStoryGenre('Acción')}
-          >
-            <Text style={styles.optionsButtonsButtonText}>Acción</Text>
-          </TouchableOpacity>
+          {genderOptions}
         </View>
       </View>
 
