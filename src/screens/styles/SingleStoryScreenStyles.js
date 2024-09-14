@@ -61,51 +61,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginRight: 5,
   },
-  preloadContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white', // Fondo gris semi-transparente
-  },
-  preloadText: {
-    marginTop: 10,
-    fontSize: 16,
-    color: '#007BFF',
-  },
-  storyContainer: {
-    flex: 1,
-    marginTop: 10,
-  },
-  storyTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  modalBackground: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo gris semi-transparente
-  },
-  modalContainer: {
-    width: '100%',
-    maxWidth: 600,
-    height: screenHeight * 0.95, // 95% del alto de la pantalla
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 20,
-    marginVertical: 5,
-  },
-  closeButton: {
-    backgroundColor: '#FF5733',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-    alignItems: 'center',
-  },
-  closeButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
   reopenButton: {
     backgroundColor: '#007BFF',
     padding: 10,
@@ -186,14 +141,6 @@ const styles = StyleSheet.create({
 	optionsButtonsButtonText: {
 	  color: 'white',
 	  fontWeight: 'bold',
-	},
-
-	generatedImage: {
-	  width: '100%',
-	  height: 256, // Ajusta según tus necesidades
-	  resizeMode: 'cover',
-	  marginBottom: 7,
-	  borderRadius: 5,
 	},
 
 });

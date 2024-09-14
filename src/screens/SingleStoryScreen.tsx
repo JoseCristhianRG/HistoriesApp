@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator, Moda
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { generateStory } from '../api/openai'; // Asegúrate de tener esta llamada al servicio de IA
 import styles from './styles/SingleStoryScreenStyles';
+import CustomModal from '../components/CustomModal'; // Importa el componente modal
 
 const SingleStoryScreen = () => {
   const [word, setWord] = useState('');
@@ -14,7 +15,7 @@ const SingleStoryScreen = () => {
   const [storyLength, setStoryLength] = useState(200); // Longitud predeterminada de la historia
   const [storyGenre, setStoryGenre] = useState('Fantasía'); // Género predeterminado de la historia
   const [withImages, setWithImages] = useState(0); // Género predeterminado de la historia
-  const [arrayGenderOptions] = useState(['Amor', 'Fantasía', 'Miedo', 'Acción']);
+  const [arrayGenderOptions] = useState(['Amor', 'Fantasía', 'Miedo', 'Risa']);
   const [arrayLengthOptions] = useState([200,350,500]);
  
   // Función para agregar la palabra al array con validaciones
@@ -51,6 +52,7 @@ const SingleStoryScreen = () => {
       const response = await generateStory(prompt, storyLength, storyGenre, withImages); // Enviar longitud y género de la historia
       setGeneratedStory(response.story);
       setGeneratedImage(response.imageUrl);
+      console.log(response);
     } catch (error) {
       console.error('Error generando la historia', error);
     } finally {
@@ -106,8 +108,8 @@ const SingleStoryScreen = () => {
 
       {/* Lista de palabras agregadas */}
       <View style={styles.wordsContainer}>
-        {wordsArray.map((item, index) => (
-          <TouchableOpacity key={index} style={styles.badgeContainer} onPress={() => removeWord(item)}>
+        {wordsArray.map((item) => (
+          <TouchableOpacity key={item} style={styles.badgeContainer} onPress={() => removeWord(item)}>
             <Text style={styles.badge}>{item}</Text>
           </TouchableOpacity>
         ))}
@@ -169,38 +171,14 @@ const SingleStoryScreen = () => {
         </TouchableOpacity>
       ) : null}
 
-      {/* Modal para mostrar la historia */}
-      <Modal
+      {/* Componente de Modal para mostrar la historia */}
+      <CustomModal
         visible={modalVisible}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalBackground}>
-          {isLoading ? (
-            <View style={styles.modalContainer}>
-              <View style={styles.preloadContainer}>
-                <ActivityIndicator size="large" />
-                <Text style={styles.preloadText}>Generando historia... espere...</Text>
-              </View>
-            </View>
-          ) : (
-            <View style={styles.modalContainer}>
-              <Text style={styles.storyTitle}>Historia Generada:</Text>
-              <ScrollView style={styles.storyContainer}>
-                <Image source={{ uri: generatedImage }} style={styles.generatedImage} />
-                <Text>{generatedStory}</Text>
-              </ScrollView>
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={styles.closeButtonText}>Cerrar</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        </View>
-      </Modal>
+        onClose={() => setModalVisible(false)}
+        isLoading={isLoading}
+        story={generatedStory}
+        imageUrl={generatedImage}
+      />
     </View>
   );
 };
