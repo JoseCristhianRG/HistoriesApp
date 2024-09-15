@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
   },
+  text: {
+    color: '#444',
+  },
   storyTitle: {
     fontSize: 15,
     color: '#333',

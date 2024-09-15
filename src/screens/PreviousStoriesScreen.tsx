@@ -106,7 +106,7 @@ const PreviousStoriesScreen = () => {
             keyExtractor={(item) => item.id.toString()}
           /> 
           : 
-          <Text>Parece que aún no generaste ninguna historia...</Text> 
+          <Text style={styles.text}>Parece que aún no generaste ninguna historia...</Text> 
         )
       }
 
