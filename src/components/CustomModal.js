@@ -43,17 +43,16 @@ const CustomModal = ({ visible, onClose, isLoading, story, imageUrl }) => {
 
 import { Dimensions} from 'react-native';
 
-const { height: screenHeight } = Dimensions.get('window');
+const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   generatedImage: {
     width: '100%',
     height: 256, // Ajusta según tus necesidades
-    resizeMode: 'cover',
+    resizeMode: 'contain',
     marginBottom: 7,
     borderRadius: 5,
   },
-
   preloadContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -99,52 +98,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-  // modalBackground: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo oscuro para el modal
-  // },
-  // modalContainer: {
-  //   width: '90%',
-  //   maxHeight: '80%',
-  //   backgroundColor: '#fff',
-  //   borderRadius: 10,
-  //   padding: 20,
-  // },
-  // preloadContainer: {
-  //   alignItems: 'center',
-  // },
-  // preloadText: {
-  //   marginTop: 10,
-  //   fontSize: 18,
-  //   color: '#333',
-  // },
-  // storyTitle: {
-  //   fontSize: 18,
-  //   fontWeight: 'bold',
-  //   marginBottom: 10,
-  // },
-  // storyContainer: {
-  //   maxHeight: '70%',
-  // },
-  // generatedImage: {
-  //   width: '100%',
-  //   height: 200,
-  //   borderRadius: 10,
-  //   marginBottom: 10,
-  // },
-  // closeButton: {
-  //   marginTop: 10,
-  //   backgroundColor: '#007BFF',
-  //   padding: 10,
-  //   borderRadius: 5,
-  //   alignItems: 'center',
-  // },
-  // closeButtonText: {
-  //   color: '#fff',
-  //   fontSize: 16,
-  // },
 });
 
 export default CustomModal;

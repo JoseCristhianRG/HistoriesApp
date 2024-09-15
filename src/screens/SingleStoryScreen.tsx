@@ -13,10 +13,12 @@ const SingleStoryScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [storyLength, setStoryLength] = useState(200); // Longitud predeterminada de la historia
+  const [storyLanguage, setStoryLanguage] = useState("Español"); // Idioma predeterminado de la historia
   const [storyGenre, setStoryGenre] = useState('Fantasía'); // Género predeterminado de la historia
   const [withImages, setWithImages] = useState(0); // Género predeterminado de la historia
   const [arrayGenderOptions] = useState(['Amor', 'Fantasía', 'Miedo', 'Risa']);
   const [arrayLengthOptions] = useState([200,350,500]);
+  const [arrayLanguageOptions] = useState(["Español","English","Deutch","French"]);
  
   // Función para agregar la palabra al array con validaciones
   const addWord = () => {
@@ -49,7 +51,7 @@ const SingleStoryScreen = () => {
     setModalVisible(true);
     const prompt = wordsArray.join(', '); // Convierte el array de palabras en una cadena
     try {
-      const response = await generateStory(prompt, storyLength, storyGenre, withImages); // Enviar longitud y género de la historia
+      const response = await generateStory(prompt, storyLength, storyGenre, withImages, storyLanguage); // Enviar longitud y género de la historia
       setGeneratedStory(response.story);
       setGeneratedImage(response.imageUrl);
       console.log(response);
@@ -65,6 +67,11 @@ const SingleStoryScreen = () => {
     setStoryLength(length);
   };
 
+  // Función para manejar la selección del idioma de la historia
+  const selectStoryLanguage = (language) => {
+    setStoryLanguage(language);
+  };
+
   // Función para manejar la selección del género de la historia
   const selectStoryGenre = (genre) => {
     setStoryGenre(genre);
@@ -78,6 +85,12 @@ const SingleStoryScreen = () => {
   lengthOptions = arrayLengthOptions.map(info => (
     <TouchableOpacity style={[styles.optionsButtonsButton, storyLength === info && styles.optionsButtonsButtonSelected]} onPress={() => selectStoryLength(info)}>
       <Text style={styles.optionsButtonsButtonText}>{info} palabras</Text>
+    </TouchableOpacity>
+  ));
+
+  languageOptions = arrayLanguageOptions.map(info => (
+    <TouchableOpacity style={[styles.optionsButtonsButton, storyLanguage === info && styles.optionsButtonsButtonSelected]} onPress={() => selectStoryLanguage(info)}>
+      <Text style={styles.optionsButtonsButtonText}>{info}</Text>
     </TouchableOpacity>
   ));
 
@@ -128,6 +141,14 @@ const SingleStoryScreen = () => {
         <Text style={styles.optionsButtonsText}>Selecciona el género de la historia:</Text>
         <View style={styles.optionsButtonsButtonsContainer}>
           {genderOptions}
+        </View>
+      </View>
+
+      {/* Opciones de género de la historia */}
+      <View style={styles.optionsButtonsContainer}>
+        <Text style={styles.optionsButtonsText}>Selecciona el idioma de la historia:</Text>
+        <View style={styles.optionsButtonsButtonsContainer}>
+          {languageOptions}
         </View>
       </View>
 

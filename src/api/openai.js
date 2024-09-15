@@ -2,9 +2,9 @@ import axios from 'axios';
 
 import { saveStory } from '../database/database';
 
-const API_KEY = "API_KEY";
+// const API_KEY = "API_KEY";
 
-export const generateStory = async (text, length, gender, withImages) => {
+export const generateStory = async (text, length, gender, withImages, language) => {
   try {
 
     /* 
@@ -25,7 +25,7 @@ export const generateStory = async (text, length, gender, withImages) => {
     */
 
     // Crear el mensaje para el modelo de generador de historias
-    const prompt = `Genera una historia de ${gender} con principio y fin de unas ${length} palabras que se base en las siguientes palabras: ${text}
+    const prompt = `Genera una historia en ${language} de ${gender} con principio y fin de unas ${length} palabras que se base en las siguientes palabras: ${text}
     
     Por favor, obvia las palabras que no sean reales, ejemplo: aaa, asdasd, etc`;
 
@@ -36,6 +36,7 @@ export const generateStory = async (text, length, gender, withImages) => {
     const response = await axios.post(
       'https://api.openai.com/v1/completions', {
         model: "gpt-3.5-turbo-instruct", // Usa el modelo de chat más reciente
+        // model: "chatgpt-4o-latest",
         prompt: prompt,
         max_tokens: 1000,
         temperature: 0.7
@@ -48,8 +49,14 @@ export const generateStory = async (text, length, gender, withImages) => {
       }
     );
 
-    let story = response.data.choices[0].text.trim();
-    console.log("Genera la historia");
+    let story = response.data.choices[0].text;
+
+    // Limpieza de los datos
+    if (story.startsWith(".")) {
+      story = story.slice(1);
+    }
+    story = story.trim();
+
     // Si se desea una imagen, realiza una solicitud adicional para generar la imagen
     if (withImages) {
       const imagePrompt = `Genera una imagen de dibujos con las siguientes palabras: ${text}`;
@@ -72,7 +79,6 @@ export const generateStory = async (text, length, gender, withImages) => {
         );
         // Sacamos la URL de la imagen
         imageUrl = imageResponse.data.data[0].url;
-        console.log("Genera la imagen");
       } catch (error) {
         console.error("Error generating image:", error);
       }
@@ -81,8 +87,7 @@ export const generateStory = async (text, length, gender, withImages) => {
     try {
 
       //Guardamos en la BD local del cliente
-      await saveStory(story, imageUrl);
-      console.log("Guarda en la BD");
+      await saveStory(Date.now(), text, story, language, imageUrl);
     } catch (dbError) {
       console.error('Error al guardar la historia en la base de datos:', dbError.response.data);
     }
