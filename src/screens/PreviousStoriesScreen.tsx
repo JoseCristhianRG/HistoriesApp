@@ -57,7 +57,7 @@ const PreviousStoriesScreen = () => {
 
   const closeSectionDeletedHistories = () => {
     loadStories();
-    setShowDeletedStories(false);
+    setShowDeletedStories(!showDeletedStories);
   };
 
   const renderItem = ({ item }) => (
@@ -96,12 +96,6 @@ const PreviousStoriesScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Historias Anteriores</Text>
-      <TouchableOpacity
-        style={styles.showDeletedButton}
-        onPress={() => setShowDeletedStories(true)}
-      >
-        <Text style={styles.showDeletedButtonText}>Ver Historias Eliminadas</Text>
-      </TouchableOpacity>
       { showDeletedStories ? 
         <DeletedStoriesView onClose={() => closeSectionDeletedHistories()} /> 
         : 
@@ -115,6 +109,13 @@ const PreviousStoriesScreen = () => {
           <Text>Parece que aún no generaste ninguna historia...</Text> 
         )
       }
+
+      <TouchableOpacity
+        style={styles.showDeletedButton}
+        onPress={() => closeSectionDeletedHistories()}
+      >
+        <Text style={styles.showDeletedButtonText}>Ver Historias {showDeletedStories ? '' : 'Eliminadas'}</Text>
+      </TouchableOpacity>
       
       <CustomModal
         visible={modalVisible}

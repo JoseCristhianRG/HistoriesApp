@@ -65,6 +65,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     padding: 5,
   },
+  showDeletedButtonText: {
+    position: 'relative',
+    top: 5,
+  }
 });
 
 export default styles;
