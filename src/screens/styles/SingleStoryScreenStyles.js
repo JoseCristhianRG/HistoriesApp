@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 5,
+    color: 'red',
   },
   addButton: {
     backgroundColor: '#007BFF',
@@ -54,11 +55,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   badge: {
-    backgroundColor: '#e0e0e0',
-    paddingHorizontal: 10,
+	  backgroundColor: '#a9a9a9',
+	  color: 'white',
+    paddingHorizontal: 12,
     paddingVertical: 5,
     borderRadius: 12,
-    fontSize: 16,
+    fontSize: 14,
     marginRight: 5,
   },
   reopenButton: {
@@ -117,6 +119,7 @@ const styles = StyleSheet.create({
 	  fontSize: 16,
 	  fontWeight: 'bold',
 	  marginBottom: 5,
+	  color: '#444',
 	},
 
 	optionsButtonsButtonsContainer: {
@@ -126,7 +129,7 @@ const styles = StyleSheet.create({
 	},
 
 	optionsButtonsButton: {
-	  backgroundColor: '#e0e0e0',
+	  backgroundColor: '#a9a9a9',
 	  padding: 10,
 	  borderRadius: 5,
 	  flex: 1,

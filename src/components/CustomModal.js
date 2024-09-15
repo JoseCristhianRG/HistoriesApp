@@ -25,7 +25,7 @@ const CustomModal = ({ visible, onClose, isLoading, story, imageUrl }) => {
               {imageUrl ? (
                 <Image source={{ uri: imageUrl }} style={styles.generatedImage} />
               ) : null}
-              <Text>{story}</Text>
+              <Text style={styles.storyText}>{story}</Text>
             </ScrollView>
             <TouchableOpacity
               style={styles.closeButton}
@@ -68,7 +68,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 10,
   },
+  storyText: {
+    color: '#777',
+  },
   storyTitle: {
+    color: '#555',
     fontSize: 18,
     fontWeight: 'bold',
   },

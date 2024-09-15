@@ -108,7 +108,8 @@ const SingleStoryScreen = () => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Escribe una palabra"
+          placeholder="Escribe una palabra..."
+          placeholderTextColor="#555" 
           value={word}
           onChangeText={setWord}
           onSubmitEditing={addWord}
