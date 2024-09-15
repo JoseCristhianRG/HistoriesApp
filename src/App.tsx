@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import HomeScreen from './screens/HomeScreen';
 import PreviousStoriesScreen from './screens/PreviousStoriesScreen';
 import SingleStoryScreen from './screens/SingleStoryScreen';
 import { View, StyleSheet } from 'react-native';
@@ -14,16 +13,6 @@ initializeDatabase();
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
-const HomeStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name="HomeScreen"
-      component={HomeScreen}
-      options={{ title: 'Bienvenido' }}
-    />
-  </Stack.Navigator>
-);
 
 const SingleStoryStack = () => (
   <Stack.Navigator>
@@ -54,9 +43,7 @@ const App = () => {
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
 
-              if (route.name === 'Home') {
-                iconName = 'home';
-              } else if (route.name === 'PreviousStories') {
+              if (route.name === 'PreviousStories') {
                 iconName = 'book';
               } else if (route.name === 'GenerateStory') {
                 iconName = 'pencil';
@@ -77,7 +64,6 @@ const App = () => {
             inactiveTintColor: 'gray',
           }}
         >
-          <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false, title: 'Inicio' }} />
           <Tab.Screen name="GenerateStory" component={SingleStoryScreen} options={{ title: 'Generar Historia' }} />
           <Tab.Screen name="PreviousStories" component={PreviousStoriesStack} options={{ headerShown: false, title: 'Historias Anteriores' }} />
         </Tab.Navigator>
