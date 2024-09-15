@@ -109,3 +109,22 @@ export const deleteStory = (id) => {
 };
 
 
+export const restoreDeleteStories = (id) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'UPDATE stories SET deleted = 0 WHERE id = ?',
+        [id],
+        (tx, results) => {
+          console.log('Historia marcada como borrada');
+          resolve(true);
+        },
+        error => {
+          console.error('Error al marcar historia como borrada:', error);
+          resolve(false);
+        }
+      );
+    });
+  });
+};
+

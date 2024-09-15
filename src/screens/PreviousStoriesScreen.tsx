@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Importa el icono
 import CustomModal from '../components/CustomModal'; // Importa el componente modal
+import DeletedStoriesView from './DeletedStoriesScreen'; // Asegúrate de que esta ruta sea correcta
 import { getAllStories, deleteStory } from '../database/database';
+import { useFocusEffect } from '@react-navigation/native'; // Importa useFocusEffect
 
 import styles from "./styles/PreviousStoriesScreenStyles";
 
@@ -11,15 +13,21 @@ const PreviousStoriesScreen = () => {
   const [selectedStory, setSelectedStory] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showDeletedStories, setShowDeletedStories] = useState(false);
 
-  useEffect(() => {
-    const loadStories = async () => {
-      const fetchedStories = await getAllStories();
-      setStories(fetchedStories);
-    };
-    loadStories();
+  // Define loadStories function
+  const loadStories = useCallback(async () => {
+    const fetchedStories = await getAllStories();
+    setStories(fetchedStories);
   }, []);
 
+  // Use useFocusEffect to call loadStories when screen is focused
+  useFocusEffect(
+    useCallback(() => {
+      loadStories();
+    }, [loadStories])
+  );
+  
   const openModal = (story) => {
     setIsLoading(true);
     setSelectedStory(story);
@@ -45,6 +53,11 @@ const PreviousStoriesScreen = () => {
       console.error('Error al eliminar la historia', error);
       Alert.alert('Error', 'Hubo un problema al eliminar la historia.');
     }
+  };
+
+  const closeSectionDeletedHistories = () => {
+    loadStories();
+    setShowDeletedStories(false);
   };
 
   const renderItem = ({ item }) => (
@@ -83,14 +96,24 @@ const PreviousStoriesScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Historias Anteriores</Text>
-      { stories[0] ? 
-        <FlatList
-          data={stories}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-        /> 
+      <TouchableOpacity
+        style={styles.showDeletedButton}
+        onPress={() => setShowDeletedStories(true)}
+      >
+        <Text style={styles.showDeletedButtonText}>Ver Historias Eliminadas</Text>
+      </TouchableOpacity>
+      { showDeletedStories ? 
+        <DeletedStoriesView onClose={() => closeSectionDeletedHistories()} /> 
         : 
-        <Text>Parece que aún no generaste ninguna historia...</Text> 
+        (stories.length > 0 ? 
+          <FlatList
+            data={stories}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+          /> 
+          : 
+          <Text>Parece que aún no generaste ninguna historia...</Text> 
+        )
       }
       
       <CustomModal

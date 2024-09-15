@@ -22,6 +22,11 @@ const HomeStack = () => (
       component={HomeScreen}
       options={{ title: 'Bienvenido' }}
     />
+  </Stack.Navigator>
+);
+
+const SingleStoryStack = () => (
+  <Stack.Navigator>
     <Stack.Screen
       name="SingleStoryScreen"
       component={SingleStoryScreen}
