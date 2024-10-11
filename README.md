@@ -32,15 +32,15 @@ Esta aplicación permite generar historias a partir de palabras claves elegidas 
 
 ### Pantalla de Generación de Historia
 <div style="display: flex; justify-content: space-between;">
-   <img src="assets/screenshots/captura1.png" alt="Pantalla de Inicio" width="300"/>
-   <img src="assets/screenshots/captura2.png" alt="Generar Historia" width="300"/>
-   <img src="assets/screenshots/captura3.png" alt="Lectura de historia" width="300"/>
+   <img src="assets/screenshots/captura1.png" alt="Pantalla de Inicio" width="250"/>
+   <img src="assets/screenshots/captura2.png" alt="Generar Historia" width="250"/>
+   <img src="assets/screenshots/captura3.png" alt="Lectura de historia" width="250"/>
 </div>
 
 ### Pantalla de Historias anteriores e historias eliminadas
 <div style="display: flex; justify-content: space-between;">
-   <img src="assets/screenshots/captura4.png" alt="Historias anteriores" width="300"/>
-   <img src="assets/screenshots/captura5.png" alt="Eliminadas" width="300"/>
+   <img src="assets/screenshots/captura4.png" alt="Historias anteriores" width="250"/>
+   <img src="assets/screenshots/captura5.png" alt="Eliminadas" width="250"/>
 </div>
 
 ## Instalación
