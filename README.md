@@ -55,7 +55,7 @@ Esta aplicación permite generar historias a partir de palabras claves elegidas 
 ### Clonar el Repositorio
 
 ```bash
-git clone https://github.com/tuusuario/generador-historias-ia.git
+git clone https://github.com/PokeWorldJG/HistoriesApp.git
 cd generador-historias-ia
 ```
 
