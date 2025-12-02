@@ -1,79 +1,122 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Generador de Historias con IA
 
-# Getting Started
+Bienvenido a la **app de Generador de Historias con IA**, una aplicación móvil que permite a los usuarios generar historias personalizadas usando inteligencia artificial (IA), con opciones de longitud, género y la posibilidad de añadir imágenes generadas automáticamente. ¡Ideal para los amantes de la escritura creativa y la narrativa!
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Índice
 
-## Step 1: Start the Metro Server
+- [Descripción](#descripción)
+- [Características](#características)
+- [Capturas de Pantalla](#capturas-de-pantalla)
+- [Instalación](#instalación)
+- [Uso](#uso)
+- [Construcción del APK](#construcción-del-apk)
+- [Tecnologías Utilizadas](#tecnologías-utilizadas)
+- [Licencia](#licencia)
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+---
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## Descripción
+
+Esta aplicación permite generar historias a partir de palabras claves elegidas por el usuario. Utiliza la API de OpenAI para generar tanto las historias como las imágenes. Los usuarios pueden elegir el género, la longitud y otras opciones para personalizar las historias generadas.
+
+## Características
+
+- **Generación de historias**: Personaliza la longitud de la historia (200, 350 o 500 palabras) y elige entre varios géneros (amor, fantasía, miedo, acción).
+- **Imágenes generadas por IA**: Los usuarios pueden decidir si quieren que las historias incluyan imágenes generadas por IA.
+- **Guardado y recuperación de historias**: Las historias generadas se pueden guardar en el dispositivo y recuperar en cualquier momento.
+- **Modo de borrado lógico**: Las historias eliminadas no se borran permanentemente, pueden ser recuperadas.
+- **Interfaz intuitiva**: Diseño sencillo, con navegación fácil a través de pestañas y un menú en la parte inferior.
+- **Modo de visualización de historias eliminadas**: Un botón especial permite ver las historias que han sido eliminadas lógicamente.
+
+## Capturas de Pantalla
+
+### Pantalla de Generación de Historia
+<div style="display: flex; justify-content: space-between;">
+   <img src="assets/screenshots/captura1.png" alt="Pantalla de Inicio" width="250"/>
+   <img src="assets/screenshots/captura2.png" alt="Generar Historia" width="250"/>
+   <img src="assets/screenshots/captura3.png" alt="Lectura de historia" width="250"/>
+</div>
+
+### Pantalla de Historias anteriores e historias eliminadas
+<div style="display: flex; justify-content: space-between;">
+   <img src="assets/screenshots/captura4.png" alt="Historias anteriores" width="250"/>
+   <img src="assets/screenshots/captura5.png" alt="Eliminadas" width="250"/>
+</div>
+
+## Instalación
+
+### Requisitos Previos
+
+- Node.js (v14 o superior)
+- React Native CLI
+- Android Studio (para Android)
+- OpenAI API Key
+
+### Clonar el Repositorio
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+git clone https://github.com/PokeWorldJG/HistoriesApp.git
+cd HistoriesApp
 ```
 
-## Step 2: Start your Application
+**### Instalar dependencias**
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+npm install
+cd android
+./gradlew clean
+cd ..
 
-### For Android
+### Configurar la Clave de API de OpenAI
+
+1. **Obtener la Clave de API**: Crea una cuenta en [OpenAI](https://openai.com) y genera tu API key.
+2. **Añadir la Clave de API**: Sustituye la API KEY dentro del archivo openai.js en la sección de api del proyecto.
+3. **Configura la base de datos SQLite**: Asegúrate de tener configurada la base de datos para guardar las historias generadas.
+
+### Ejecución en Modo Desarrollo
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+npx react-native run-android
 ```
 
-### For iOS
+Asegúrate de tener un emulador de Android corriendo o un dispositivo físico conectado.
+
+## Uso
+
+1. **Generar una historia**: Navega a la pantalla de "Generar Historia", elige las palabras clave, longitud, género y si quieres imágenes. Pulsa en "Generar".
+2. **Ver historias anteriores**: En la pantalla de "Historias Anteriores" puedes ver las historias guardadas, eliminarlas lógicamente, o ver detalles.
+3. **Historias eliminadas**: Accede a las historias eliminadas lógicamente desde un botón especial en la misma pantalla de historias anteriores.
+
+## Construcción del APK
+
+Si deseas generar un APK de producción para instalar la aplicación en tu dispositivo:
+
+1. **Configura la firma de la APK**:
+   Sigue los pasos para generar un archivo keystore y configúralo en `android/app/build.gradle`.
+
+2. **Genera el APK**:
 
 ```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+cd android
+./gradlew assembleRelease
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+3. **Encuentra el APK** en `android/app/build/outputs/apk/release/app-release.apk`.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+4. **Instala el APK** en tu dispositivo usando ADB:
 
-## Step 3: Modifying your App
+```bash
+adb install android/app/build/outputs/apk/release/app-release.apk
+```
 
-Now that you have successfully run the app, let's modify it.
+## Tecnologías Utilizadas
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+- **React Native**: Framework principal para desarrollar aplicaciones móviles.
+- **OpenAI API**: Utilizada para la generación de historias e imágenes.
+- **SQLite**: Para el almacenamiento local de las historias generadas.
+- **Axios**: Para las solicitudes HTTP a la API de OpenAI.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+## Licencia
 
-## Congratulations! :tada:
+Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
 
-You've successfully run and modified your React Native App. :partying_face:
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
