@@ -115,8 +115,5 @@ adb install android/app/build/outputs/apk/release/app-release.apk
 - **SQLite**: Para el almacenamiento local de las historias generadas.
 - **Axios**: Para las solicitudes HTTP a la API de OpenAI.
 
-## Licencia
-
-Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
 
 
